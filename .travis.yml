@@ -1,0 +1,62 @@
+# Use the new container-based infrastructure
+sudo: false
+
+# Install some apt packages needed for spcomp
+addons:
+    apt:
+        sources: 
+            - deadsnakes
+        packages:
+            - lib32stdc++6
+            # We need at least python3.4 to run our custom deployment scripts
+            - python3.5
+
+# Set the build environment
+env:
+    - SMVERSION=1.8 # Stable
+    - SMVERSION=1.9 # Unstable
+
+# Allow the experimental branch to fail
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: SMVERSION=1.9
+
+install:
+    - wget --input-file=http://sourcemod.net/smdrop/$SMVERSION/sourcemod-latest-linux
+    - tar -xzf $(cat sourcemod-latest-linux)
+    - wget https://bitbucket.org/GoD_Tony/updater/raw/default/include/updater.inc -O $COMPILE_SCRIPTING_FOLDER/include/updater.inc
+    - COMPILE_SOURCEMOD_FOLDER="$TRAVIS_BUILD_DIR/addons/sourcemod"
+    - COMPILE_SCRIPTING_FOLDER="$TRAVIS_BUILD_DIR/addons/sourcemod/scripting"
+    - COMMIT_NUMBER=$(git rev-list --count HEAD)
+    
+before_script:
+    - cp -r "$TRAVIS_BUILD_DIR/scripting" "$COMPILE_SOURCEMOD_FOLDER"
+    - chmod +x "$COMPILE_SCRIPTING_FOLDER/spcomp"
+    - mkdir "$TRAVIS_BUILD_DIR/plugins"
+    - FILE=example-n$COMMIT_NUMBER.zip
+# And compile!
+
+script: 
+    - $COMPILE_SCRIPTING_FOLDER/spcomp $COMPILE_SCRIPTING_FOLDER/example.sp -o$TRAVIS_BUILD_DIR/plugins/example.smx
+
+before_deploy: 
+    - PACKAGE_DIRS[0]="./plugins/"
+    - PACKAGE_DIRS[1]="./scripting/"
+    - zip -r $FILE ${PACKAGE_DIRS[*]}
+
+deploy:
+    provider: releases
+    api_key:
+        secure: qNYE5Cs2nUYNSt/nTW27ENKKXKY/UjDa+wmsOv8ftB2PPZLoF8a9q+3XrtOexOqfPrhlzfCa/ngXU1IUhBeaPKj2JyF7uWf2uw9gCI7UKIvV6eMiHtjejEYl1B5ZTwinvU/RJx25rUmS3q14z/RA/PcpUvAx+9hVvq/e6Y5qrH8hHOxyRkrkrnD3rdTgBtfMtlDkZT99IeIvcnIw0fsbyA/S+F7nv6O+ZGLOcM6n8tK236PQLwcZBoM07bK/PL6n7Q1GHMS8UiVhIncfzfo735SUfA6l0LKhsXlNKugWLWYeNKUT/3Fug9BLzHeXjFNHmO67pg06K0+rzAbsG8q/Sd34gnbMMWNrb6myKukQe3Ch7Q1FxrEW/mnjiYAwqWf2lsC5KbTNMPp0UzjeGJACrtR25N0WKr+SdapVyLviGW7rwUGc9aGk1T60aE9ssh1HKUe4pdbIhYKogZyFwy+x6ST+bSiaNqZxheWjcVsUseoHJ/cENXp+SbLpEByAV0NeouLhi9O6Suz6+knLXWby5sjBAFgKOOIz+HEEWeN1tzrUgmOkXDW0uj2CA5VOdvNmf0jPgXZ+9NJRqaiToyJ6QJKAHsZbmraAVbdhG6TwvTGS9JwoSwZKGGNceBADZiH3cpJbPZfwmrU5D4/5VdMuStO7kM49eDtywzj5hxdfIyw=
+    file: $FILE
+    skip_cleanup: true
+    on:
+        branch: master
+        condition: $SMVERSION = 1.8
+        repo: servadestroya/sample_plugin_autoupdated
+        tags: true
+
+# Notifications
+notifications:
+    email: false
