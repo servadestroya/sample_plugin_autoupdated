@@ -61,8 +61,7 @@ before_deploy:
     
     - mkdir "$TRAVIS_BUILD_DIR/.package_updater"
     - cp -r ${PACKAGE_DIRS[*]} "$TRAVIS_BUILD_DIR/.package_updater"
-    - ls ${PATH//:/ } | grep python
-    - python3 "$UPDATER_SCRIPTS_PATH/updater_script_gen.py" --sm_path "$PACKAGE_PATH" --version "$VERSION" --notes "Version $VERSION is out!" "Go to $URL to see the changes" --output "$PACKAGE_PATH/updater.txt"
+    - python3.5 "$UPDATER_SCRIPTS_PATH/updater_script_gen.py" --sm_path "$PACKAGE_PATH" --version "$VERSION" --notes "Version $VERSION is out!" "Go to $URL to see the changes" --output "$PACKAGE_PATH/updater.txt"
     - chmod +x "$UPDATER_SCRIPTS_PATH/deploy.sh"
 
 deploy:
