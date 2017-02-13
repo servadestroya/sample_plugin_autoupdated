@@ -17,6 +17,8 @@ env:
         - PROJECT_SHORTNAME="example"
         - UPDATER_REPO="sm_updater"
         - UPDATER_USER="servadestroya"
+        - UPDATER_USER_NAME = "$UPDATER_USER"
+        - UPDATER_USER_EMAIL = "$UPDATER_USER@gmail.com"
         - URL="https://github.com/$UPDATER_USER/sample_plugin_autoupdated"
         #UPDATER_REPO_OAUTH
         - secure: "uALRIL2YpLP9h8vTPY2Bk9ZyS9iOYUOBkpmYUKCJeXg0zgcAwhCJ1KJFccnUN9dD6d1uQhspw/6Y0+g7S0FAku1DkXueraSQMLcpDLs+N1lVdXQ+zwytSVNZBnWKhDu5ggtkjjQ67Egt0Vfwy91KxXVPc+8Ex4onO/RykKoPuaF7VUSHuXul/S7ZbWl8Ysk9DM/ej7u4H5Vyod8I70AH6bv6tTn921nyi9m5P5lvkVlEMkv/fFQpp9pVTAwfXtjqf2HM4h7iFYN+iZc0DKnLor2Y8t4bStrXKRUvonuJ5qX+MRB4DjBgttEc/AnTdxTIMwc3FsMqpxN5UAXZVp1kfIBMhzYZYOIJwQumhEaTBUxlzZTyQtton1e0gwvnVf361Wr1qyVlArDjwS6WORaRkcPkFw5UnBRmhTIH0QNUKmQ+zMYONDrFlXgyIUI8aiUg5TgAUbPfzILXf8sxeqo1MYWTOqF+zS4kpOTlHT5uTcAinijJAc9+0lht3c6XAB1cgO0NS5eP3mrt6y1kJGbs15z6LpkqEmS+824aw7JAdcgyuKKx2QwFQr6o80qOEo2TGwg4UMoPUG+NM1qFgVOV+jsAW38h0THHrY1iLyFuFpEGLW565vtEPzk9rNdsPzqRnrcObTAbHICjGSJSK57JKg16oTL7h9aQXMeduPJeziQ="
@@ -78,7 +80,7 @@ deploy:
           tags: true
         
     - provider: script
-      script: '"$UPDATER_SCRIPTS_PATH/deploy.sh" "$PROJECT_SHORTNAME" "$VERSION" "$UPDATER_REPO" "$UPDATER_USER" "$UPDATER_REPO_OAUTH"'
+      script: '"$UPDATER_SCRIPTS_PATH/deploy.sh" "$PROJECT_SHORTNAME" "$VERSION" "$UPDATER_REPO" "$UPDATER_USER" "$UPDATER_REPO_OAUTH" "$UPDATER_USER_NAME" "$UPDATER_USER_EMAIL"'
       skip_cleanup: false
       on:
           branch: updater
