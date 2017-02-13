@@ -65,23 +65,23 @@ before_deploy:
     - chmod +x "$UPDATER_SCRIPTS_PATH/deploy.sh"
 
 deploy:
-    provider: releases
-    api_key:
-        secure: B9lka6u0jkPxHGPqGUzLESQvlFSi5FTj2KVx2w+gtILzUFeXwRUwvFr6UveU4PAcFPzvUOfchItXGW682Ljh1HCo0bUcBLgSdvBJuZPeqTFHpf4y2hjb8E+mQwaZ0aEgWfqfq9w9ZtH+03Q+8kKQpUBARDOGrn5unuKH3IXOVqfKt5PkBaF/9Eb9fP88u0vDdkJ00S0/M3Nm23DoN5XzDovN3amPP+WfsdlrxOx5zKfSZdLCv+Qxi1cRr6tyljMrtWpPh+vepD4moLYRbQuKgQkr7iweBornxe0Y/xyWcQGoLxz3jnyDzlLisGE1DdU5kItaAITRGAYHw7UE0Bjg7kBi8ISlJqF7lgbrNKTRUUJMvk/KK4uP0mP1PaUyhdU69PJQALTM/XRsqd7+/HWeqSgKriI5FRoncv4iKrAo/mzsi/5hTc/FW3Q0P1zNZYfiSLCdfAfQ/0EaoIkQzDNhBc1c42U6BN6SG//qoLCRLXqdbPzbd703KiYeAGYKWMv79N+kYK3Y3gHTBduNbANB3BonhCdkqC+j1cZ0Gwd6P7lL0+kEhSIdo3cDx08RZ0vCVPCfi95bGJNc2VvOuyRtQVcffAxzaDU9W/TLT3kQ5nd1RgrXhhPgw6DvFuJIbfgTiUz/s9YsX4ChJFN5Mog9VZukWG9zRTFn7MXg9Rhqny4=
-    file: $FILE
-    skip_cleanup: true
-    on:
-        branch: master
-        condition: $SMVERSION = 1.8
-        repo: servadestroya/sample_plugin_autoupdated
-        tags: true
+    - provider: releases
+      api_key:
+          secure: B9lka6u0jkPxHGPqGUzLESQvlFSi5FTj2KVx2w+gtILzUFeXwRUwvFr6UveU4PAcFPzvUOfchItXGW682Ljh1HCo0bUcBLgSdvBJuZPeqTFHpf4y2hjb8E+mQwaZ0aEgWfqfq9w9ZtH+03Q+8kKQpUBARDOGrn5unuKH3IXOVqfKt5PkBaF/9Eb9fP88u0vDdkJ00S0/M3Nm23DoN5XzDovN3amPP+WfsdlrxOx5zKfSZdLCv+Qxi1cRr6tyljMrtWpPh+vepD4moLYRbQuKgQkr7iweBornxe0Y/xyWcQGoLxz3jnyDzlLisGE1DdU5kItaAITRGAYHw7UE0Bjg7kBi8ISlJqF7lgbrNKTRUUJMvk/KK4uP0mP1PaUyhdU69PJQALTM/XRsqd7+/HWeqSgKriI5FRoncv4iKrAo/mzsi/5hTc/FW3Q0P1zNZYfiSLCdfAfQ/0EaoIkQzDNhBc1c42U6BN6SG//qoLCRLXqdbPzbd703KiYeAGYKWMv79N+kYK3Y3gHTBduNbANB3BonhCdkqC+j1cZ0Gwd6P7lL0+kEhSIdo3cDx08RZ0vCVPCfi95bGJNc2VvOuyRtQVcffAxzaDU9W/TLT3kQ5nd1RgrXhhPgw6DvFuJIbfgTiUz/s9YsX4ChJFN5Mog9VZukWG9zRTFn7MXg9Rhqny4=
+      file: $FILE
+      skip_cleanup: true
+      on:
+          branch: master
+          condition: $SMVERSION = 1.8
+          repo: servadestroya/sample_plugin_autoupdated
+          tags: true
         
-    provider: script
-    script: "$UPDATER_SCRIPTS_PATH/deploy.sh" "$PROJECT_SHORTNAME" "$VERSION" "$UPDATER_REPO" "$UPDATER_USER" "$UPDATER_REPO_OAUTH"
-    on:
-        branch: updater
-        condition: $SMVERSION = 1.8
-        tags: true
+    - provider: script
+      script: '"$UPDATER_SCRIPTS_PATH/deploy.sh" "$PROJECT_SHORTNAME" "$VERSION" "$UPDATER_REPO" "$UPDATER_USER" "$UPDATER_REPO_OAUTH"'
+      on:
+          branch: updater
+          condition: $SMVERSION = 1.8
+          tags: true
 
 # Notifications
 notifications:
