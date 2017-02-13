@@ -83,7 +83,7 @@ deploy:
       on:
           branch: updater
           condition: $SMVERSION = 1.8
-          tags: true
+          tags: false
 
 # Notifications
 notifications:
