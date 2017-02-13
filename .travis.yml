@@ -23,7 +23,7 @@ env:
         #UPDATER_REPO_OAUTH
         - secure: "Q2ExWTJeV/r+j08xxpJ75ZQ7rMoxT0/b49T18UOCrx0JXOqnv6jR/Dlup5P1heF5K+iSOaLEpuTh7KkHF4U02tZUpk7plLt9vfRXoK+ZukceS3vHqRF7I0XdixqBddkHTsV2vXxx5J/ustSVGqtSmlGycX+f03dLudwfP3ullLItugctb8Do9eCkfdw+jv83uyxUW2Mb7dVDMJaKrc3tV/x5IlrKzx1SFCw1nSpxehMaVnSfkNudzuwtY4ZXK4jiFekbH8gKQ16JBCh+2F2r/ihfZ0WhVg7NvzXrMwURroJW/a94ippGmkItjID5KDZN4roDl05jesHHq8HprorQITaiFzQafqGCcW67WSDG70bYFARr380T9O9U8M+87/EiUBg9UspO0GRu5QQpVaFTNEZw/oluVf4Wlnvr+9lzcQ+dJr1O0XIx+3MkVsa7tL+zWA7B+00thwv5bB8Sct+OUeJlHVIKJRhHC2eFLq0fPIcbDQ5C+Ceu3BLsRIxgtpu7/sxXr9lfIeEWAvNx9BDZgEQTiTw+GSSyb+2z9/pxpWuFVUWS3ZfQqRPaEbfKYa/Mw5sX6UY+UgOzg7cTsiTYXu+JPLD3WQDFMbMCHkwJj3S9lxqUTwxLtV7a0yXFfxLrZv+MyqgOcLZirD/BjeU9jLqDu7L3W0XvS6n2Z3TavPc="
     matrix:
-        - SMVERSION=1.8 # Stable
+        - SMVERSION=1.8 # Stable 
         - SMVERSION=1.9 # Unstable
 
 # Allow the experimental branch to fail
