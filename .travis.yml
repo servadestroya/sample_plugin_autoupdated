@@ -59,7 +59,7 @@ before_deploy:
     - PACKAGE_PATH="$TRAVIS_BUILD_DIR/.package_updater"
     - UPDATER_SCRIPTS_PATH="$TRAVIS_BUILD_DIR/.buildtools/tony_updater"
     
-    - ls -l
+    - ls -la
     - mkdir "$PACKAGE_PATH"
     - cp -r ${PACKAGE_DIRS[*]} "$PACKAGE_PATH"
     - python3.5 "$UPDATER_SCRIPTS_PATH/updater_script_gen.py" --sm_path "$PACKAGE_PATH" --version "$VERSION" --notes "Version $VERSION is out!" "Go to $URL to see the changes" --output "$PACKAGE_PATH/updater.txt"
