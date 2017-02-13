@@ -13,8 +13,16 @@ addons:
 
 # Set the build environment
 env:
-    - SMVERSION=1.8 # Stable
-    - SMVERSION=1.9 # Unstable
+    global:
+        - PROJECT_SHORTNAME="example"
+        - UPDATER_REPO="sm_updater"
+        - UPDATER_USER="servadestroya"
+        - URL="https://github.com/$UPDATER_USER/sample_plugin_autoupdated"
+        #UPDATER_REPO_OAUTH
+        - secure: "uALRIL2YpLP9h8vTPY2Bk9ZyS9iOYUOBkpmYUKCJeXg0zgcAwhCJ1KJFccnUN9dD6d1uQhspw/6Y0+g7S0FAku1DkXueraSQMLcpDLs+N1lVdXQ+zwytSVNZBnWKhDu5ggtkjjQ67Egt0Vfwy91KxXVPc+8Ex4onO/RykKoPuaF7VUSHuXul/S7ZbWl8Ysk9DM/ej7u4H5Vyod8I70AH6bv6tTn921nyi9m5P5lvkVlEMkv/fFQpp9pVTAwfXtjqf2HM4h7iFYN+iZc0DKnLor2Y8t4bStrXKRUvonuJ5qX+MRB4DjBgttEc/AnTdxTIMwc3FsMqpxN5UAXZVp1kfIBMhzYZYOIJwQumhEaTBUxlzZTyQtton1e0gwvnVf361Wr1qyVlArDjwS6WORaRkcPkFw5UnBRmhTIH0QNUKmQ+zMYONDrFlXgyIUI8aiUg5TgAUbPfzILXf8sxeqo1MYWTOqF+zS4kpOTlHT5uTcAinijJAc9+0lht3c6XAB1cgO0NS5eP3mrt6y1kJGbs15z6LpkqEmS+824aw7JAdcgyuKKx2QwFQr6o80qOEo2TGwg4UMoPUG+NM1qFgVOV+jsAW38h0THHrY1iLyFuFpEGLW565vtEPzk9rNdsPzqRnrcObTAbHICjGSJSK57JKg16oTL7h9aQXMeduPJeziQ="
+    matrix:
+        - SMVERSION=1.8 # Stable
+        - SMVERSION=1.9 # Unstable
 
 # Allow the experimental branch to fail
 matrix:
@@ -29,21 +37,32 @@ install:
     - COMPILE_SCRIPTING_FOLDER="$TRAVIS_BUILD_DIR/addons/sourcemod/scripting"
     - wget https://bitbucket.org/GoD_Tony/updater/raw/default/include/updater.inc -O $COMPILE_SCRIPTING_FOLDER/include/updater.inc
     - COMMIT_NUMBER=$(git rev-list --count HEAD)
+    - if [[ -z $TRAVIS_TAG ]]; then TAG=TRAVIS_TAG; else TAG="_untagged_"; fi
+    - VERSION="$TAG.$COMMIT_NUMBER"
     
 before_script:
     - cp -r "$TRAVIS_BUILD_DIR/scripting" "$COMPILE_SOURCEMOD_FOLDER"
     - chmod +x "$COMPILE_SCRIPTING_FOLDER/spcomp"
     - mkdir "$TRAVIS_BUILD_DIR/plugins"
-    - FILE=example-n$COMMIT_NUMBER.zip
+    - FILE=$PROJECT_SHORTNAME-n$COMMIT_NUMBER.zip
 # And compile!
 
 script: 
     - $COMPILE_SCRIPTING_FOLDER/spcomp $COMPILE_SCRIPTING_FOLDER/example.sp -o$TRAVIS_BUILD_DIR/plugins/example.smx
 
 before_deploy: 
+    - cd $TRAVIS_BUILD_DIR
     - PACKAGE_DIRS[0]="./plugins/"
     - PACKAGE_DIRS[1]="./scripting/"
     - zip -r $FILE ${PACKAGE_DIRS[*]}
+    
+    - PACKAGE_PATH="$TRAVIS_BUILD_DIR/.package_updater"
+    - UPDATER_SCRIPTS_PATH="$TRAVIS_BUILD_DIR/.buildtools/tony_updater"
+    
+    - cp ${PACKAGE_DIRS[*]} "$TRAVIS_BUILD_DIR/.package_updater"
+    - pip3 install vdf
+    - python3 "$UPDATER_SCRIPTS_PATH/updater_script_gen.py" --sm_path "$PACKAGE_PATH" --version "$VERSION" --notes "Version $VERSION is out!" "Go to $URL to see the changes" --output "$PACKAGE_PATH/updater.txt"
+    - chmod +x "$UPDATER_SCRIPTS_PATH/deploy.sh"
 
 deploy:
     provider: releases
@@ -55,6 +74,13 @@ deploy:
         branch: master
         condition: $SMVERSION = 1.8
         repo: servadestroya/sample_plugin_autoupdated
+        tags: true
+        
+    provider: script
+    script: "$UPDATER_SCRIPTS_PATH/deploy.sh" "$PROJECT_SHORTNAME" "$VERSION" "$UPDATER_REPO" "$UPDATER_USER" "$UPDATER_REPO_OAUTH"
+    on:
+        branch: updater
+        condition: $SMVERSION = 1.8
         tags: true
 
 # Notifications
