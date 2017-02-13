@@ -53,7 +53,7 @@ script:
 before_deploy: 
     - cd $TRAVIS_BUILD_DIR
     - PACKAGE_DIRS[0]="./plugins/"
-    - PACKAGE_DIRS[1]="./scripting/"
+    - PACKAGE_DIRS[1]="./scripting/" 
     - zip -r $FILE ${PACKAGE_DIRS[*]}
     
     - PACKAGE_PATH="$TRAVIS_BUILD_DIR/.package_updater"
