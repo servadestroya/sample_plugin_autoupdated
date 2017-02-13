@@ -10,7 +10,7 @@ addons:
             - lib32stdc++6
             # We need at least python3.4 to run our custom deployment scripts
             - python3.5
-            - python3-pip
+            - python-pip
 
 # Set the build environment
 env:
@@ -62,7 +62,7 @@ before_deploy:
     
     - mkdir "$TRAVIS_BUILD_DIR/.package_updater"
     - cp -r ${PACKAGE_DIRS[*]} "$TRAVIS_BUILD_DIR/.package_updater"
-    - pip3 install vdf
+    - pip install vdf
     - python3 "$UPDATER_SCRIPTS_PATH/updater_script_gen.py" --sm_path "$PACKAGE_PATH" --version "$VERSION" --notes "Version $VERSION is out!" "Go to $URL to see the changes" --output "$PACKAGE_PATH/updater.txt"
     - chmod +x "$UPDATER_SCRIPTS_PATH/deploy.sh"
 
