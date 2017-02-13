@@ -17,11 +17,11 @@ env:
         - PROJECT_SHORTNAME="example"
         - UPDATER_REPO="sm_updater"
         - UPDATER_USER="servadestroya"
-        - UPDATER_USER_NAME = "$UPDATER_USER"
-        - UPDATER_USER_EMAIL = "$UPDATER_USER@gmail.com"
+        - UPDATER_USER_NAME="$UPDATER_USER"
+        - UPDATER_USER_EMAIL="$UPDATER_USER@gmail.com"
         - URL="https://github.com/$UPDATER_USER/sample_plugin_autoupdated"
         #UPDATER_REPO_OAUTH
-        - secure: "uALRIL2YpLP9h8vTPY2Bk9ZyS9iOYUOBkpmYUKCJeXg0zgcAwhCJ1KJFccnUN9dD6d1uQhspw/6Y0+g7S0FAku1DkXueraSQMLcpDLs+N1lVdXQ+zwytSVNZBnWKhDu5ggtkjjQ67Egt0Vfwy91KxXVPc+8Ex4onO/RykKoPuaF7VUSHuXul/S7ZbWl8Ysk9DM/ej7u4H5Vyod8I70AH6bv6tTn921nyi9m5P5lvkVlEMkv/fFQpp9pVTAwfXtjqf2HM4h7iFYN+iZc0DKnLor2Y8t4bStrXKRUvonuJ5qX+MRB4DjBgttEc/AnTdxTIMwc3FsMqpxN5UAXZVp1kfIBMhzYZYOIJwQumhEaTBUxlzZTyQtton1e0gwvnVf361Wr1qyVlArDjwS6WORaRkcPkFw5UnBRmhTIH0QNUKmQ+zMYONDrFlXgyIUI8aiUg5TgAUbPfzILXf8sxeqo1MYWTOqF+zS4kpOTlHT5uTcAinijJAc9+0lht3c6XAB1cgO0NS5eP3mrt6y1kJGbs15z6LpkqEmS+824aw7JAdcgyuKKx2QwFQr6o80qOEo2TGwg4UMoPUG+NM1qFgVOV+jsAW38h0THHrY1iLyFuFpEGLW565vtEPzk9rNdsPzqRnrcObTAbHICjGSJSK57JKg16oTL7h9aQXMeduPJeziQ="
+        - secure: "Q2ExWTJeV/r+j08xxpJ75ZQ7rMoxT0/b49T18UOCrx0JXOqnv6jR/Dlup5P1heF5K+iSOaLEpuTh7KkHF4U02tZUpk7plLt9vfRXoK+ZukceS3vHqRF7I0XdixqBddkHTsV2vXxx5J/ustSVGqtSmlGycX+f03dLudwfP3ullLItugctb8Do9eCkfdw+jv83uyxUW2Mb7dVDMJaKrc3tV/x5IlrKzx1SFCw1nSpxehMaVnSfkNudzuwtY4ZXK4jiFekbH8gKQ16JBCh+2F2r/ihfZ0WhVg7NvzXrMwURroJW/a94ippGmkItjID5KDZN4roDl05jesHHq8HprorQITaiFzQafqGCcW67WSDG70bYFARr380T9O9U8M+87/EiUBg9UspO0GRu5QQpVaFTNEZw/oluVf4Wlnvr+9lzcQ+dJr1O0XIx+3MkVsa7tL+zWA7B+00thwv5bB8Sct+OUeJlHVIKJRhHC2eFLq0fPIcbDQ5C+Ceu3BLsRIxgtpu7/sxXr9lfIeEWAvNx9BDZgEQTiTw+GSSyb+2z9/pxpWuFVUWS3ZfQqRPaEbfKYa/Mw5sX6UY+UgOzg7cTsiTYXu+JPLD3WQDFMbMCHkwJj3S9lxqUTwxLtV7a0yXFfxLrZv+MyqgOcLZirD/BjeU9jLqDu7L3W0XvS6n2Z3TavPc="
     matrix:
         - SMVERSION=1.8 # Stable
         - SMVERSION=1.9 # Unstable
@@ -72,7 +72,7 @@ deploy:
       api_key:
           secure: B9lka6u0jkPxHGPqGUzLESQvlFSi5FTj2KVx2w+gtILzUFeXwRUwvFr6UveU4PAcFPzvUOfchItXGW682Ljh1HCo0bUcBLgSdvBJuZPeqTFHpf4y2hjb8E+mQwaZ0aEgWfqfq9w9ZtH+03Q+8kKQpUBARDOGrn5unuKH3IXOVqfKt5PkBaF/9Eb9fP88u0vDdkJ00S0/M3Nm23DoN5XzDovN3amPP+WfsdlrxOx5zKfSZdLCv+Qxi1cRr6tyljMrtWpPh+vepD4moLYRbQuKgQkr7iweBornxe0Y/xyWcQGoLxz3jnyDzlLisGE1DdU5kItaAITRGAYHw7UE0Bjg7kBi8ISlJqF7lgbrNKTRUUJMvk/KK4uP0mP1PaUyhdU69PJQALTM/XRsqd7+/HWeqSgKriI5FRoncv4iKrAo/mzsi/5hTc/FW3Q0P1zNZYfiSLCdfAfQ/0EaoIkQzDNhBc1c42U6BN6SG//qoLCRLXqdbPzbd703KiYeAGYKWMv79N+kYK3Y3gHTBduNbANB3BonhCdkqC+j1cZ0Gwd6P7lL0+kEhSIdo3cDx08RZ0vCVPCfi95bGJNc2VvOuyRtQVcffAxzaDU9W/TLT3kQ5nd1RgrXhhPgw6DvFuJIbfgTiUz/s9YsX4ChJFN5Mog9VZukWG9zRTFn7MXg9Rhqny4=
       file: $FILE
-      skip_cleanup: false
+      skip_cleanup: true
       on:
           branch: master
           condition: $SMVERSION = 1.8
@@ -81,7 +81,7 @@ deploy:
         
     - provider: script
       script: '"$UPDATER_SCRIPTS_PATH/deploy.sh" "$PROJECT_SHORTNAME" "$VERSION" "$UPDATER_REPO" "$UPDATER_USER" "$UPDATER_REPO_OAUTH" "$UPDATER_USER_NAME" "$UPDATER_USER_EMAIL"'
-      skip_cleanup: false
+      skip_cleanup: true
       on:
           branch: updater
           condition: $SMVERSION = 1.8
