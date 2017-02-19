@@ -64,6 +64,8 @@ before_deploy:
     - echo $(git rev-parse --abbrev-ref HEAD)
     - echo $(git symbolic-ref --short HEAD)
     - echo $(git branch | sed -n '/\* /s///p')
+    - echo $TRAVIS_PULL_REQUEST_BRANCH
+    - echo $TRAVIS_BRANCH
     
     - rm -rf "$PACKAGE_PATH/"
     - mkdir "$PACKAGE_PATH/"
