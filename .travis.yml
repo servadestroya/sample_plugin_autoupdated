@@ -61,6 +61,10 @@ before_deploy:
     - PACKAGE_PATH="$TRAVIS_BUILD_DIR/.package_updater"
     - UPDATER_SCRIPTS_PATH="$TRAVIS_BUILD_DIR/.buildtools/tony_updater"
     
+    - echo $(git rev-parse --abbrev-ref HEAD)
+    - echo $(git symbolic-ref --short HEAD)
+    - echo $(git branch | sed -n '/\* /s///p')
+    
     - rm -rf "$PACKAGE_PATH/"
     - mkdir "$PACKAGE_PATH/"
     - cp -r ${PACKAGE_DIRS[*]} "$PACKAGE_PATH/"
